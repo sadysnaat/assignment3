@@ -9,6 +9,10 @@ import (
 )
 
 type Manager struct {
+	// Manager uses sync.Map instead of a queue because the idea is that a persistent task
+	// management system will have some way of effective retrieval and removal
+	// sync.Map allows us to concurrently access the map select and delete task as necessary
+	// a queue or a slice can be maintained but would require O(N) to find and delete the tasks
 	tasks sync.Map
 }
 

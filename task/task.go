@@ -9,7 +9,6 @@ import (
 
 type Task struct {
 	Id          string
-	IsCompleted bool
 	status      string
 }
 
@@ -68,7 +67,6 @@ func (t *Task) Execute(intent string) {
 	select {
 	case <-time.After(time.Millisecond * time.Duration(c)):
 		fmt.Printf("[task] %s completed\n", t.Id)
-		t.IsCompleted = true
 		t.status = "completed"
 		return
 	case <-time.After(time.Millisecond * time.Duration(to)):
