@@ -30,8 +30,9 @@ func TestTask_Execute_Completed(t *testing.T) {
 
 	for _, test := range tt {
 		go test.task.Execute(test.executeMode)
-
-		time.Sleep(time.Millisecond * 200)
+		// task will take maximum time.Millisecond * 1000 to reach either
+		// of the states, just sleep for a while the tasks executes
+		time.Sleep(time.Millisecond * 2000)
 		status, _ := test.task.Status()
 		//fmt.Println(status)
 		if status != test.expected {

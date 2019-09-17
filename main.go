@@ -18,11 +18,14 @@ func main() {
 	wg.Add(1)
 	go m.Purge(&wg)
 
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 5; i++ {
 		t := &task.Task{
 			Id: fmt.Sprintf("%d", i),
 		}
-		m.Enqueue(t)
+		err := m.Enqueue(t)
+		if err != nil {
+			continue
+		}
 	}
 
 	wg.Wait()
